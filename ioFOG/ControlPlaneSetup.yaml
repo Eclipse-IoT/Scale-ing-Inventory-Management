@@ -1,0 +1,48 @@
+#File needs to be edited to match your config.
+#Important feilds to change have been marked with a #
+apiVersion: iofog.org/v2
+kind: ControlPlane
+metadata:
+  name: albatros
+spec:
+  iofogUser:
+    name: John #
+    surname: Doe #
+    email: testEmail@email-email.org #
+    password: gregory1234test #
+  controllers:
+  - name: comptrollers-office
+    host: 192.168.191.209 #
+    ssh:
+      user: greg
+      keyFile: ~/.ssh/id_rsa
+---
+apiVersion: iofog.org/v2
+kind: Agent
+metadata:
+  name: home-edge
+spec:
+  host: 192.168.191.97 #
+  ssh:
+    user: pi
+    keyFile: ~/.ssh/id_rsa
+---
+apiVersion: iofog.org/v2
+kind: Agent
+metadata:
+  name: car-edge
+spec:
+  host: 192.168.191.118 #
+  ssh:
+    user: pi
+    keyFile: ~/.ssh/id_rsa
+---
+apiVersion: iofog.org/v2
+kind: Agent
+metadata:
+  name: cloud-edge
+spec:
+  host: 192.168.191.205 #
+  ssh:
+    user: greg
+    keyFile: ~/.ssh/id_rsa

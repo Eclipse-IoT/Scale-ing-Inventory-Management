@@ -1,0 +1,44 @@
+#This script will deploy streamsheets on cloud-edge Agent
+#If you are following the readme, this script is not used
+apiVersion: iofog.org/v2
+kind: Application
+metadata:
+  name: streamsheets-cloud
+  namespace: default 
+spec:
+  microservices:
+    - name: spreadSheets-cloud
+      agent:
+        name: cloud-edge
+      images:
+        arm: cedalo/streamsheets-installer:1.5-rpi
+        x86: cedalo/streamsheets
+      container:
+        rootHostAccess: false
+        ports:
+          - internal: 1883
+            external: 1883
+            protocol: tcp
+          - internal: 27017
+            external: 27017
+            protocol: tcp
+          - internal: 6379
+            external: 6379
+            protocol: tcp
+          - internal: 8080
+            external: 8080
+            protocol: tcp
+          - internal: 8081
+            external: 8081
+            protocol: tcp
+          - internal: 8083
+            external: 8083
+            protocol: tcp
+          - internal: 8088
+            external: 8088
+            protocol: tcp
+          - internal: 9000
+            external: 9001
+            protocol: tcp
+      config:
+        test_mode: true

@@ -1,0 +1,51 @@
+#This script deploys scaling-inventory edge software
+#Please edit config on for each device
+apiVersion: iofog.org/v2
+kind: Application
+metadata:
+  name: streamsheets-network
+  namespace: default
+spec:
+  microservices:
+    - name: smartconnector-pi-one
+      agent:
+        name: home-edge
+      images:
+        arm: geevo/eclipse-smartfactory:armv1.5
+        x86: geevo/eclipse-smartfactory:latest
+      config:
+        mqttServer: "192.168.191.205" #
+        username: "cedalo" #
+        password: "M7wgN0BhUIffVWkBPWyr1l7nb" #
+        port: 1883 #
+        name: "factoryA" #
+      container:
+        rootHostAccess: false
+        ports:
+          - internal: 8080
+            external: 8080
+            protocol: tcp
+          - internal: 1883
+            external: 1883
+            protocol: tcp
+    - name: smartconnector-pi-two
+      agent:
+        name: car-edge
+      images:
+        arm: geevo/eclipse-smartfactory:armv1.5
+        x86: geevo/eclipse-smartfactory:latest
+      config:
+        mqttServer: "192.168.191.205" #
+        username: "cedalo" #
+        password: "M7wgN0BhUIffVWkBPWyr1l7nb" #
+        port: 1883 #
+        name: "factoryB" #
+      container:
+        rootHostAccess: false
+        ports:
+          - internal: 8080
+            external: 8080
+            protocol: tcp
+          - internal: 1883
+            external: 1883
+            protocol: tcp
